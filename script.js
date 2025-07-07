@@ -66,16 +66,4 @@ document.addEventListener("DOMContentLoaded", () => {
       result.innerHTML = "<em>Please select all fields before generating a plan.</em>";
     }
   });
-  function extractHashtags(text) {
-  const hashtagRegex = /#[\w]+/g;
-  const matches = text.match(hashtagRegex);
-  return matches ? matches.join(' ') : '';
-}
-
-function copyHashtags() {
-  const hashtagTextarea = document.getElementById('hashtags');
-  hashtagTextarea.select();
-  document.execCommand('copy');
-  alert('Hashtags copied!');
-}
 });
