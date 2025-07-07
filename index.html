@@ -1,42 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Skyline</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skyline Content Planner</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1 class="glow">Skyline Content Planner</h1>
+    <h1 class="header">Skyline Content Planner</h1><div class="form-group">
+  <label for="platform">Choose a Platform:</label>
+  <select id="platform" onchange="updateCategories()">
+    <option value="">-- Select Platform --</option>
+    <option value="YouTube">YouTube</option>
+    <option value="TikTok">TikTok</option>
+    <option value="Instagram">Instagram</option>
+    <option value="Twitch">Twitch</option>
+    <option value="Twitter">Twitter</option>
+  </select>
+</div>
 
-    <div class="selector">
-      <label for="platform">Choose Platform</label>
-      <select id="platform">
-        <option value="">-- Select Platform --</option>
-      </select>
-    </div>
+<div class="form-group">
+  <label for="category">Choose a Category:</label>
+  <select id="category" onchange="updateSubcategories()">
+    <option value="">-- Select Category --</option>
+    <option value="Fitness">Fitness</option>
+    <option value="Gaming">Gaming</option>
+    <option value="Blogging">Blogging</option>
+  </select>
+</div>
 
-    <div class="selector">
-      <label for="category">Choose Category</label>
-      <select id="category" disabled>
-        <option value="">-- Select Category --</option>
-      </select>
-    </div>
+<div class="form-group">
+  <label for="subcategory">Choose a Subcategory:</label>
+  <select id="subcategory">
+    <option value="">-- Select Subcategory --</option>
+  </select>
+</div>
 
-    <div class="selector">
-      <label for="subcategory">Choose Subcategory</label>
-      <select id="subcategory" disabled>
-        <option value="">-- Select Subcategory --</option>
-      </select>
-    </div>
+<button onclick="generatePlan()">Generate Content Plan</button>
 
-    <button id="generateBtn">Generate Plan</button>
+<div id="output" class="output"></div>
 
-    <div id="planContainer"></div>
-  </div>
-
-  <script src="data.js"></script>
-  <script src="script.js"></script>
-</body>
+  </div>  <script src="data.js"></script>  <script src="script.js"></script></body>
 </html>
