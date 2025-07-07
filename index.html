@@ -1,46 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Skyline Content Planner</title>
-<link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skyline Content Planner</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
-    <h1 id="header">Skyline Content Planner</h1>
+    <h1 class="neon-border">Skyline Content Planner</h1>
 
-    <label for="category">Category</label>
-    <select id="category">
-      <option value="">-- Choose a Category --</option>
-    </select>
+    <label for="category">Choose Category:</label>
+    <select id="category"></select>
 
-    <label for="subcategory" id="subcategory-label" style="display:none;">Subcategory</label>
-    <select id="subcategory" style="display:none;">
-      <option value="">-- Choose a Subcategory --</option>
-    </select>
+    <label for="subcategory">Choose Subcategory:</label>
+    <select id="subcategory"></select>
 
-    <label for="platform" id="platform-label" style="display:none;">Platform</label>
-    <select id="platform" style="display:none;">
-      <option value="">-- Choose a Platform --</option>
-    </select>
+    <label for="platform">Choose Platform:</label>
+    <select id="platform"></select>
 
-    <label for="contentType" id="contentType-label" style="display:none;">Content Type</label>
-    <select id="contentType" style="display:none;">
-      <option value="">-- Choose Content Type --</option>
-    </select>
+    <label for="contentType">Choose Content Type:</label>
+    <select id="contentType"></select>
 
-    <label for="postTime" id="postTime-label" style="display:none;">Post Time</label>
-    <select id="postTime" style="display:none;">
-      <option value="">-- Choose Post Time --</option>
-    </select>
+    <label for="postTime">Choose Post Time:</label>
+    <select id="postTime"></select>
 
-    <button id="generateBtn" disabled>Generate Content Plan</button>
+    <button id="generateBtn">Generate Content Plan</button>
 
     <div id="result"></div>
   </div>
 
-<script src="data.js"></script>
-<script src="script.js"></script>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
