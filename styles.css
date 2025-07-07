@@ -1,45 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
-
 body {
   background-color: #000;
   color: #00ff00;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 .container {
   max-width: 600px;
   margin: 50px auto;
-  padding: 20px;
+  padding: 30px;
   background-color: #111;
-  box-shadow: 0 0 10px #00ff00;
+  box-shadow: 0 0 20px #00ff00;
   border-radius: 10px;
 }
 
 h1 {
-  text-align: center;
   color: #00ff00;
   border: 2px solid #00ff00;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 15px;
+  border-radius: 8px;
 }
 
-.dropdowns label,
-select {
+.dropdowns {
+  margin: 20px 0;
+}
+
+label, select {
   display: block;
-  width: 100%;
-  margin: 10px 0 5px;
+  margin: 10px auto;
+  width: 80%;
+  font-size: 1rem;
 }
 
-select,
-button {
+select, button {
   padding: 10px;
   background-color: #222;
   color: #00ff00;
   border: 1px solid #00ff00;
   border-radius: 5px;
   font-size: 16px;
+  width: 80%;
 }
 
 button {
@@ -53,5 +55,8 @@ button {
   background-color: #0f0f0f;
   border: 1px dashed #00ff00;
   border-radius: 5px;
-  color: #00ff00;
+}
+
+.hidden {
+  display: none;
 }
