@@ -1,30 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Skyline</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Skyline Content Planner</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Skyline Content Planner</h1>
-    <div class="dropdowns">
-      <label for="category">Select Category:</label>
-      <select id="category">
-        <option value="">-- Choose a Category --</option>
-      </select>
+    <h1 id="header">Skyline Content Planner</h1>
 
-      <label for="subcategory">Select Subcategory:</label>
-      <select id="subcategory">
-        <option value="">-- Choose a Subcategory --</option>
-      </select>
-    </div>
-    <button id="generateBtn">Generate Plan</button>
+    <label for="category">Category</label>
+    <select id="category">
+      <option value="">-- Choose a Category --</option>
+    </select>
+
+    <label for="subcategory" id="subcategory-label" style="display:none;">Subcategory</label>
+    <select id="subcategory" style="display:none;">
+      <option value="">-- Choose a Subcategory --</option>
+    </select>
+
+    <label for="platform" id="platform-label" style="display:none;">Platform</label>
+    <select id="platform" style="display:none;">
+      <option value="">-- Choose a Platform --</option>
+    </select>
+
+    <label for="contentType" id="contentType-label" style="display:none;">Content Type</label>
+    <select id="contentType" style="display:none;">
+      <option value="">-- Choose Content Type --</option>
+    </select>
+
+    <label for="postTime" id="postTime-label" style="display:none;">Post Time</label>
+    <select id="postTime" style="display:none;">
+      <option value="">-- Choose Post Time --</option>
+    </select>
+
+    <button id="generateBtn" disabled>Generate Content Plan</button>
+
     <div id="result"></div>
   </div>
 
-  <script src="data.js"></script>
-  <script src="script.js"></script>
+<script src="data.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
