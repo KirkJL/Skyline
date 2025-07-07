@@ -1,81 +1,53 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f2f5;
-  color: #333;
-  text-align: center;
-  padding: 40px 20px;
+  background-color: #000;
+  color: #00ff00;
+  font-family: Arial, sans-serif;
   margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #111;
+  box-shadow: 0 0 10px #00ff00;
+  border-radius: 10px;
 }
 
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
+  text-align: center;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  padding: 10px;
+  border-radius: 5px;
 }
 
-.select-group {
-  margin-bottom: 20px;
-}
-
-select {
-  padding: 12px 16px;
+.dropdowns label, select {
   display: block;
   width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #fff;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  transition: border 0.3s ease;
+  margin: 10px 0 5px;
 }
 
-select:focus {
-  outline: none;
-  border-color: #007bff;
+select, button {
+  padding: 10px;
+  background-color: #222;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 button {
-  margin-top: 30px;
-  padding: 12px 24px;
-  font-size: 16px;
-  border: none;
-  border-radius: 6px;
-  background-color: #007bff;
-  color: white;
+  margin-top: 25px; /* Added extra space above button */
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #0056b3;
-}
-
-#output {
-  margin-top: 30px;
-  white-space: pre-line;
-  background-color: #fff;
-  padding: 20px;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  font-size: 16px;
-  text-align: left;
-}
-
-@media (max-width: 600px) {
-  select, button {
-    font-size: 14px;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  #output {
-    font-size: 15px;
-  }
+#result {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #0f0f0f;
+  border: 1px dashed #00ff00;
+  border-radius: 5px;
+  color: #00ff00;
 }
