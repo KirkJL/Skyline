@@ -38,15 +38,16 @@
           options.tones.forEach(tone => {
             const key = `${platform}_${sub}_${tone}`;
             contentPlans[key] = {
-              title: `${tone} take on ${sub} for ${platform}`,
-              sound: `${sub.toLowerCase().replace(/ /g, '-')}-sound.mp3`,
+              title: `${tone} ${sub} content for ${platform}`,
+              sound: `Popular-${platform.toLowerCase()}-${tone.toLowerCase()}.mp3`,
               hashtags: [
+                `#${platform.toLowerCase()}`,
                 `#${sub.replace(/ /g, '').toLowerCase()}`,
                 `#${tone.toLowerCase()}`,
-                `#${platform.toLowerCase()}`
+                `#skyline`
               ],
-              hook: `Here's a ${tone.toLowerCase()} twist on ${sub} content for ${platform}!`,
-              caption: `Try this ${tone.toLowerCase()} idea on ${platform}: ${sub}`,
+              hook: `This ${tone.toLowerCase()} take on ${sub} is perfect for ${platform} growth!`,
+              caption: `🚀 Boost your reach on ${platform} with this ${tone.toLowerCase()} idea: ${sub}.`,
               bestTime: "9AM–11AM or 6PM–9PM"
             };
           });
