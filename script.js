@@ -1,40 +1,42 @@
-function updateCategories() {
-  document.getElementById('category').value = '';
-  document.getElementById('subcategory').innerHTML = '<option value="">-- Select Subcategory --</option>';
-}
+const categorySelect = document.getElementById("category");
+const subcategorySelect = document.getElementById("subcategory");
+const resultDiv = document.getElementById("result");
+const generateBtn = document.getElementById("generateBtn");
 
-function updateSubcategories() {
-  const platform = document.getElementById('platform').value;
-  const category = document.getElementById('category').value;
-  const subcategorySelect = document.getElementById('subcategory');
+const populateCategories = () => {
+  Object.keys(plans).forEach((category) => {
+    const opt = document.createElement("option");
+    opt.value = category;
+    opt.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+    categorySelect.appendChild(opt);
+  });
+};
 
-  subcategorySelect.innerHTML = '<option value="">-- Select Subcategory --</option>';
+const populateSubcategories = () => {
+  const selectedCategory = categorySelect.value;
+  subcategorySelect.innerHTML = '<option value="">-- Choose a Subcategory --</option>';
 
-  if (platform && category && data[platform] && data[platform][category]) {
-    const subs = Object.keys(data[platform][category]);
-    subs.forEach(sub => {
-      const option = document.createElement('option');
-      option.value = sub;
-      option.textContent = sub;
-      subcategorySelect.appendChild(option);
+  if (plans[selectedCategory]) {
+    Object.keys(plans[selectedCategory]).forEach((sub) => {
+      const opt = document.createElement("option");
+      opt.value = sub;
+      opt.textContent = sub.charAt(0).toUpperCase() + sub.slice(1);
+      subcategorySelect.appendChild(opt);
     });
   }
-}
+};
 
-function generatePlan() {
-  const platform = document.getElementById('platform').value;
-  const category = document.getElementById('category').value;
-  const subcategory = document.getElementById('subcategory').value;
-  const output = document.getElementById('output');
+categorySelect.addEventListener("change", populateSubcategories);
 
-  if (platform && category && subcategory) {
-    const result = data?.[platform]?.[category]?.[subcategory];
-    if (result) {
-      output.textContent = `📈 Platform: ${platform}\n📂 Category: ${category} > ${subcategory}\n\n📋 Plan:\n${result}`;
-    } else {
-      output.textContent = "No content plan found for that selection.";
-    }
+generateBtn.addEventListener("click", () => {
+  const category = categorySelect.value;
+  const subcategory = subcategorySelect.value;
+
+  if (category && subcategory && plans[category] && plans[category][subcategory]) {
+    resultDiv.textContent = plans[category][subcategory];
   } else {
-    output.textContent = "Please choose all dropdowns before generating.";
+    resultDiv.textContent = "No plan available for this selection.";
   }
-}
+});
+
+populateCategories();
