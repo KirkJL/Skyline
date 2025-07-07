@@ -1,137 +1,43 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Skyline - Content Planner</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: #0f0f0f;
-      color: #e0e0e0;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .neon {
-      color: #0f0;
-      text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 15px #0f0;
-    }
-    .bg-neon-dark {
-      background: linear-gradient(145deg, #0a0a0a, #1a1a1a);
-    }
-    .btn-neon {
-      background-color: #0f0;
-      color: #000;
-      font-weight: bold;
-      box-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
-    }
-    .btn-neon:hover {
-      background-color: #0c0;
-    }
-    select, button {
-      border: none;
-      outline: none;
-    }
-  </style>
+  <title>Skyline - Trend Planner</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-neon-dark p-6 min-h-screen">
-  <div class="max-w-2xl mx-auto space-y-6">
-    <h1 class="text-4xl font-bold text-center neon">Skyline</h1><div class="space-y-4">
-  <select id="platform" class="w-full p-3 bg-gray-900 text-white rounded-lg"></select>
-  <select id="primaryCategory" class="w-full p-3 bg-gray-900 text-white rounded-lg" onchange="updateSubcategories()"></select>
-  <select id="subcategory" class="w-full p-3 bg-gray-900 text-white rounded-lg hidden"></select>
-  <select id="tone" class="w-full p-3 bg-gray-900 text-white rounded-lg"></select>
-  <button onclick="generateContent()" class="w-full btn-neon py-3 px-4 rounded-lg">
-    Generate Content Plan
-  </button>
-</div>
+<body>
+  <div class="container">
+    <h1 class="header">Skyline Content Planner</h1>
 
-<div id="contentPlan" class="hidden bg-gray-900 text-white p-5 rounded-lg mt-6 space-y-2"></div>
+    <div class="selector">
+      <label for="platform">Platform:</label>
+      <select id="platform">
+        <option value="">Select a platform</option>
+        <option value="tiktok">TikTok</option>
+        <option value="youtube">YouTube</option>
+        <option value="instagram">Instagram</option>
+        <option value="twitter">Twitter</option>
+        <option value="twitch">Twitch</option>
+      </select>
+    </div>
 
-  </div>  <script>
-    const options = {
-      platforms: ["TikTok", "YouTube", "Instagram", "Twitch", "Twitter", "Facebook", "Threads", "Pinterest"],
-      categories: {
-        Fitness: ["Gym Motivation", "Home Workouts", "Bodybuilding", "Diet Tips", "Recovery Hacks"],
-        Gaming: ["Funny Clips", "Game Guides", "Stream Highlights", "Reviews", "Fails"],
-        Blogging: ["Productivity", "Personal Stories", "Tutorials", "Affiliate Reviews", "Writing Tips"]
-      },
-      tones: ["Funny", "Motivational", "Serious", "Casual", "Bold", "Relatable"]
-    };
+    <div class="selector" id="category-container" style="display: none;">
+      <label for="category">Category:</label>
+      <select id="category"></select>
+    </div>
 
-    const contentPlans = {};
+    <div class="selector" id="subcategory-container" style="display: none;">
+      <label for="subcategory">Subcategory:</label>
+      <select id="subcategory"></select>
+    </div>
 
-    options.platforms.forEach(platform => {
-      Object.entries(options.categories).forEach(([category, subcategories]) => {
-        subcategories.forEach(sub => {
-          options.tones.forEach(tone => {
-            const key = `${platform}_${sub}_${tone}`;
-            contentPlans[key] = {
-              title: `${tone} ${sub} content for ${platform}`,
-              sound: `Popular-${platform.toLowerCase()}-${tone.toLowerCase()}.mp3`,
-              hashtags: [
-                `#${platform.toLowerCase()}`,
-                `#${sub.replace(/ /g, '').toLowerCase()}`,
-                `#${tone.toLowerCase()}`,
-                `#skyline`
-              ],
-              hook: `This ${tone.toLowerCase()} take on ${sub} is perfect for ${platform} growth!`,
-              caption: `🚀 Boost your reach on ${platform} with this ${tone.toLowerCase()} idea: ${sub}.`,
-              bestTime: "9AM–11AM or 6PM–9PM"
-            };
-          });
-        });
-      });
-    });
+    <button id="generate">Generate Plan</button>
 
-    function populateDropdowns() {
-      const platformSelect = document.getElementById("platform");
-      const primaryCategorySelect = document.getElementById("primaryCategory");
-      const toneSelect = document.getElementById("tone");
+    <div id="plan"></div>
+  </div>
 
-      platformSelect.innerHTML = '<option>Select a Platform</option>' + options.platforms.map(p => `<option>${p}</option>`).join("");
-      primaryCategorySelect.innerHTML = '<option>Select a Category</option>' + Object.keys(options.categories).map(c => `<option>${c}</option>`).join("");
-      toneSelect.innerHTML = '<option>Select a Tone</option>' + options.tones.map(t => `<option>${t}</option>`).join("");
-    }
-
-    function updateSubcategories() {
-      const selectedCategory = document.getElementById("primaryCategory").value;
-      const subcategorySelect = document.getElementById("subcategory");
-      if (!options.categories[selectedCategory]) {
-        subcategorySelect.innerHTML = '';
-        subcategorySelect.classList.add("hidden");
-        return;
-      }
-      subcategorySelect.innerHTML = '<option>Select a Subcategory</option>' + options.categories[selectedCategory].map(n => `<option>${n}</option>`).join("");
-      subcategorySelect.classList.remove("hidden");
-    }
-
-    function generateContent() {
-      const platform = document.getElementById("platform").value;
-      const subcategory = document.getElementById("subcategory").value;
-      const tone = document.getElementById("tone").value;
-
-      const key = `${platform}_${subcategory}_${tone}`;
-      const plan = contentPlans[key];
-
-      const container = document.getElementById("contentPlan");
-
-      if (!plan) {
-        container.innerHTML = `<p class='text-red-400'>No plan available for this combination yet.</p>`;
-        container.classList.remove("hidden");
-        return;
-      }
-
-      container.innerHTML = `
-        <h2 class="text-2xl font-semibold text-green-300">Your Content Plan</h2>
-        <p><strong>Trend Title:</strong> ${plan.title}</p>
-        <p><strong>Sound:</strong> ${plan.sound}</p>
-        <p><strong>Hook:</strong> ${plan.hook}</p>
-        <p><strong>Caption:</strong> ${plan.caption}</p>
-        <p><strong>Hashtags:</strong> ${plan.hashtags.join(" ")}</p>
-        <p><strong>Best Time to Post:</strong> ${plan.bestTime}</p>
-      `;
-      container.classList.remove("hidden");
-    }
-
-    window.onload = populateDropdowns;
-  </script></body>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
 </html>
