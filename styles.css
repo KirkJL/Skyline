@@ -75,3 +75,33 @@ button:hover {
   font-size: 16px;
   line-height: 1.4;
 }
+#hashtagBox {
+  margin-top: 20px;
+}
+
+#hashtags {
+  width: 100%;
+  background-color: #0f0f0f;
+  color: #00ff00;
+  border: 1px dashed #00ff00;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+#hashtagBox button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  background-color: #222;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#hashtagBox button:hover {
+  background-color: #00ff00;
+  color: #000;
+}
