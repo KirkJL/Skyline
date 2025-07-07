@@ -1,85 +1,69 @@
-const platformSelect = document.getElementById("platform");
-const categorySelect = document.getElementById("category");
-const subcategorySelect = document.getElementById("subcategory");
-const generateBtn = document.getElementById("generateBtn");
-const resultDiv = document.getElementById("result");
+document.addEventListener("DOMContentLoaded", () => {
+  const platformSelect = document.getElementById("platform");
+  const categorySelect = document.getElementById("category");
+  const subcategorySelect = document.getElementById("subcategory");
+  const categoryContainer = document.getElementById("categoryContainer");
+  const subcategoryContainer = document.getElementById("subcategoryContainer");
+  const generateBtn = document.getElementById("generateBtn");
+  const result = document.getElementById("result");
 
-const categoryWrapper = document.getElementById("category-wrapper");
-const subcategoryWrapper = document.getElementById("subcategory-wrapper");
-
-// Populate Platforms
-const populatePlatforms = () => {
+  // Populate platforms
   Object.keys(plans).forEach(platform => {
-    const opt = document.createElement("option");
-    opt.value = platform;
-    opt.textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
-    platformSelect.appendChild(opt);
+    const option = document.createElement("option");
+    option.value = platform;
+    option.textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
+    platformSelect.appendChild(option);
   });
-};
 
-// Populate Categories
-const populateCategories = () => {
-  const selectedPlatform = platformSelect.value;
-  categorySelect.innerHTML = '<option value="">-- Choose a Category --</option>';
-  subcategorySelect.innerHTML = '<option value="">-- Choose a Subcategory --</option>';
-  subcategoryWrapper.classList.add("hidden");
-  generateBtn.classList.add("hidden");
+  platformSelect.addEventListener("change", () => {
+    const selectedPlatform = platformSelect.value;
+    categorySelect.innerHTML = '<option value="">-- Choose a Category --</option>';
+    subcategorySelect.innerHTML = '<option value="">-- Choose a Subcategory --</option>';
+    result.innerHTML = "";
+    subcategoryContainer.classList.add("hidden");
 
-  if (plans[selectedPlatform]) {
-    categoryWrapper.classList.remove("hidden");
-    Object.keys(plans[selectedPlatform]).forEach(category => {
-      const opt = document.createElement("option");
-      opt.value = category;
-      opt.textContent = category.charAt(0).toUpperCase() + category.slice(1);
-      categorySelect.appendChild(opt);
-    });
-  } else {
-    categoryWrapper.classList.add("hidden");
-  }
-};
+    if (selectedPlatform) {
+      Object.keys(plans[selectedPlatform]).forEach(category => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+        categorySelect.appendChild(option);
+      });
+      categoryContainer.classList.remove("hidden");
+    } else {
+      categoryContainer.classList.add("hidden");
+      subcategoryContainer.classList.add("hidden");
+    }
+  });
 
-// Populate Subcategories
-const populateSubcategories = () => {
-  const selectedPlatform = platformSelect.value;
-  const selectedCategory = categorySelect.value;
-  subcategorySelect.innerHTML = '<option value="">-- Choose a Subcategory --</option>';
-  generateBtn.classList.add("hidden");
+  categorySelect.addEventListener("change", () => {
+    const selectedPlatform = platformSelect.value;
+    const selectedCategory = categorySelect.value;
+    subcategorySelect.innerHTML = '<option value="">-- Choose a Subcategory --</option>';
+    result.innerHTML = "";
 
-  if (plans[selectedPlatform] && plans[selectedPlatform][selectedCategory]) {
-    subcategoryWrapper.classList.remove("hidden");
-    Object.keys(plans[selectedPlatform][selectedCategory]).forEach(sub => {
-      const opt = document.createElement("option");
-      opt.value = sub;
-      opt.textContent = sub.charAt(0).toUpperCase() + sub.slice(1);
-      subcategorySelect.appendChild(opt);
-    });
-  } else {
-    subcategoryWrapper.classList.add("hidden");
-  }
-};
+    if (selectedPlatform && selectedCategory) {
+      Object.keys(plans[selectedPlatform][selectedCategory]).forEach(sub => {
+        const option = document.createElement("option");
+        option.value = sub;
+        option.textContent = sub.charAt(0).toUpperCase() + sub.slice(1);
+        subcategorySelect.appendChild(option);
+      });
+      subcategoryContainer.classList.remove("hidden");
+    } else {
+      subcategoryContainer.classList.add("hidden");
+    }
+  });
 
-// Enable Generate Button
-subcategorySelect.addEventListener("change", () => {
-  if (subcategorySelect.value) {
-    generateBtn.classList.remove("hidden");
-  } else {
-    generateBtn.classList.add("hidden");
-  }
+  generateBtn.addEventListener("click", () => {
+    const platform = platformSelect.value;
+    const category = categorySelect.value;
+    const subcategory = subcategorySelect.value;
+
+    if (platform && category && subcategory) {
+      result.innerHTML = plans[platform][category][subcategory];
+    } else {
+      result.innerHTML = "<em>Please select all fields before generating a plan.</em>";
+    }
+  });
 });
-
-// Generate Plan
-generateBtn.addEventListener("click", () => {
-  const platform = platformSelect.value;
-  const category = categorySelect.value;
-  const subcategory = subcategorySelect.value;
-
-  const plan = plans[platform]?.[category]?.[subcategory];
-  resultDiv.textContent = plan || "No plan available for this selection.";
-});
-
-// Events
-platformSelect.addEventListener("change", populateCategories);
-categorySelect.addEventListener("change", populateSubcategories);
-
-// Init
-populatePlatforms();
