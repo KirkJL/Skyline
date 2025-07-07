@@ -14,18 +14,15 @@ h1 {
   margin-bottom: 30px;
 }
 
-/* === Container for spacing === */
-.select-group {
-  margin-bottom: 20px; /* Space between dropdowns */
-}
-
 /* === Dropdown Styling === */
 select {
   padding: 12px 16px;
+  margin-bottom: 20px;  /* 🔥 Space between dropdowns */
   display: block;
   width: 100%;
   max-width: 400px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -41,7 +38,7 @@ select:focus {
 
 /* === Button Styling === */
 button {
-  margin-top: 30px; /* ✅ This space is now visible! */
+  margin-top: 20px;  /* ✅ Adds space above the button */
   padding: 12px 24px;
   font-size: 16px;
   border: none;
@@ -57,7 +54,7 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* === Output Box === */
+/* === Textarea Output Box === */
 #output {
   margin-top: 30px;
   white-space: pre-line;
