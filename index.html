@@ -10,7 +10,7 @@
     <h1 class="text-4xl font-bold text-center text-blue-400">Skyline</h1><div class="space-y-4">
   <select id="platform" class="w-full p-3 bg-gray-800 rounded-lg"></select>
   <select id="primaryCategory" class="w-full p-3 bg-gray-800 rounded-lg" onchange="updateSubcategories()"></select>
-  <select id="subcategory" class="w-full p-3 bg-gray-800 rounded-lg"></select>
+  <select id="subcategory" class="w-full p-3 bg-gray-800 rounded-lg hidden"></select>
   <select id="tone" class="w-full p-3 bg-gray-800 rounded-lg"></select>
   <button onclick="generateContent()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg">
     Generate Content Plan
@@ -30,48 +30,29 @@
       tones: ["Funny", "Motivational", "Serious", "Casual", "Bold", "Relatable"]
     };
 
-    const contentPlans = {
-      "TikTok_Gym Motivation_Funny": {
-        title: "When leg day ruins your weekend",
-        sound: "leg-day-sound.mp3",
-        hashtags: ["#fitnessfun", "#legday", "#pain"],
-        hook: "POV: You thought you could walk after squats",
-        caption: "Tag a friend who skips leg day 🏋️‍♂️",
-        bestTime: "6–9PM weekdays"
-      },
-      "YouTube_Game Guides_Serious": {
-        title: "Master Every Map in Apex Legends",
-        sound: "none",
-        hashtags: ["#apexlegends", "#gameguide", "#fps"],
-        hook: "Don’t die again because you didn’t know this spot.",
-        caption: "This guide covers every rotation. Period.",
-        bestTime: "12–3PM weekends"
-      },
-      "Instagram_Personal Stories_Motivational": {
-        title: "My Journey to 1K Followers in 30 Days",
-        sound: "triumph.mp3",
-        hashtags: ["#growthstory", "#bloggingjourney", "#motivation"],
-        hook: "From 10 likes to hundreds. Here's how.",
-        caption: "Consistency and real value. That’s the secret.",
-        bestTime: "10AM weekdays"
-      },
-      "Twitch_Stream Highlights_Bold": {
-        title: "I clutched a 1v4 on stream and lost my mind",
-        sound: "clip-audio.mp3",
-        hashtags: ["#twitchmoments", "#clutch", "#gamers"],
-        hook: "No one believed it. Until now.",
-        caption: "One of the most intense moments on stream!",
-        bestTime: "After 7PM"
-      },
-      "Twitter_Writing Tips_Relatable": {
-        title: "Why writing feels hard (and how to fix it)",
-        sound: "none",
-        hashtags: ["#writinglife", "#bloggerproblems", "#relatable"],
-        hook: "Some days the words just don’t come...",
-        caption: "A mini-thread on how to bust through blocks",
-        bestTime: "9–11AM weekdays"
-      }
-    };
+    const contentPlans = {};
+
+    options.platforms.forEach(platform => {
+      Object.entries(options.categories).forEach(([category, subcategories]) => {
+        subcategories.forEach(sub => {
+          options.tones.forEach(tone => {
+            const key = `${platform}_${sub}_${tone}`;
+            contentPlans[key] = {
+              title: `${tone} take on ${sub} for ${platform}`,
+              sound: `${sub.toLowerCase().replace(/ /g, '-')}-sound.mp3`,
+              hashtags: [
+                `#${sub.replace(/ /g, '').toLowerCase()}`,
+                `#${tone.toLowerCase()}`,
+                `#${platform.toLowerCase()}`
+              ],
+              hook: `Here's a ${tone.toLowerCase()} twist on ${sub} content for ${platform}!`,
+              caption: `Try this ${tone.toLowerCase()} idea on ${platform}: ${sub}`,
+              bestTime: "9AM–11AM or 6PM–9PM"
+            };
+          });
+        });
+      });
+    });
 
     function populateDropdowns() {
       const platformSelect = document.getElementById("platform");
@@ -87,10 +68,12 @@
       const selectedCategory = document.getElementById("primaryCategory").value;
       const subcategorySelect = document.getElementById("subcategory");
       if (!options.categories[selectedCategory]) {
-        subcategorySelect.innerHTML = '<option>Select a Subcategory</option>';
+        subcategorySelect.innerHTML = '';
+        subcategorySelect.classList.add("hidden");
         return;
       }
       subcategorySelect.innerHTML = '<option>Select a Subcategory</option>' + options.categories[selectedCategory].map(n => `<option>${n}</option>`).join("");
+      subcategorySelect.classList.remove("hidden");
     }
 
     function generateContent() {
