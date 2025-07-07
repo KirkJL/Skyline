@@ -8,30 +8,9 @@
 <body class="bg-gray-900 text-white p-6 min-h-screen">
   <div class="max-w-2xl mx-auto space-y-6">
     <h1 class="text-4xl font-bold text-center text-blue-400">Skyline</h1><div class="space-y-4">
-  <select id="platform" class="w-full p-3 bg-gray-800 rounded-lg">
-    <option>Select a Platform</option>
-    <option>TikTok</option>
-    <option>YouTube</option>
-    <option>Instagram</option>
-    <option>Twitch</option>
-    <option>Twitter</option>
-  </select>
-
-  <select id="niche" class="w-full p-3 bg-gray-800 rounded-lg">
-    <option>Select a Niche</option>
-    <option>Fitness</option>
-    <option>Gaming</option>
-    <option>Blogging</option>
-  </select>
-
-  <select id="tone" class="w-full p-3 bg-gray-800 rounded-lg">
-    <option>Select a Tone</option>
-    <option>Funny</option>
-    <option>Motivational</option>
-    <option>Serious</option>
-    <option>Casual</option>
-  </select>
-
+  <select id="platform" class="w-full p-3 bg-gray-800 rounded-lg"></select>
+  <select id="niche" class="w-full p-3 bg-gray-800 rounded-lg"></select>
+  <select id="tone" class="w-full p-3 bg-gray-800 rounded-lg"></select>
   <button onclick="generateContent()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg">
     Generate Content Plan
   </button>
@@ -40,29 +19,99 @@
 <div id="contentPlan" class="hidden bg-gray-800 p-5 rounded-lg mt-6 space-y-2"></div>
 
   </div>  <script>
-    function generateContent() {
-      const contentPlan = {
+    const options = {
+      platforms: ["TikTok", "YouTube", "Instagram", "Twitch", "Twitter", "Facebook", "Threads", "Pinterest"],
+      niches: {
+        Fitness: ["Gym Motivation", "Home Workouts", "Bodybuilding", "Diet Tips", "Recovery Hacks"],
+        Gaming: ["Funny Clips", "Game Guides", "Stream Highlights", "Reviews", "Fails"],
+        Blogging: ["Productivity", "Personal Stories", "Tutorials", "Affiliate Reviews", "Writing Tips"]
+      },
+      tones: ["Funny", "Motivational", "Serious", "Casual", "Bold", "Relatable"]
+    };
+
+    const contentPlans = {
+      "TikTok_Gym Motivation_Funny": {
         title: "When leg day ruins your weekend",
         sound: "leg-day-sound.mp3",
         hashtags: ["#fitnessfun", "#legday", "#pain"],
         hook: "POV: You thought you could walk after squats",
-        caption: "Tag a friend who skips leg day 🏋️‍♂️ #fitnessfun #gymstruggles",
+        caption: "Tag a friend who skips leg day 🏋️‍♂️",
         bestTime: "6–9PM weekdays"
-      };
+      },
+      "YouTube_Game Guides_Serious": {
+        title: "Master Every Map in Apex Legends",
+        sound: "none",
+        hashtags: ["#apexlegends", "#gameguide", "#fps"],
+        hook: "Don’t die again because you didn’t know this spot.",
+        caption: "This guide covers every rotation. Period.",
+        bestTime: "12–3PM weekends"
+      },
+      "Instagram_Personal Stories_Motivational": {
+        title: "My Journey to 1K Followers in 30 Days",
+        sound: "triumph.mp3",
+        hashtags: ["#growthstory", "#bloggingjourney", "#motivation"],
+        hook: "From 10 likes to hundreds. Here's how.",
+        caption: "Consistency and real value. That’s the secret.",
+        bestTime: "10AM weekdays"
+      },
+      "Twitch_Stream Highlights_Bold": {
+        title: "I clutched a 1v4 on stream and lost my mind",
+        sound: "clip-audio.mp3",
+        hashtags: ["#twitchmoments", "#clutch", "#gamers"],
+        hook: "No one believed it. Until now.",
+        caption: "One of the most intense moments on stream!",
+        bestTime: "After 7PM"
+      },
+      "Twitter_Writing Tips_Relatable": {
+        title: "Why writing feels hard (and how to fix it)",
+        sound: "none",
+        hashtags: ["#writinglife", "#bloggerproblems", "#relatable"],
+        hook: "Some days the words just don’t come...",
+        caption: "A mini-thread on how to bust through blocks",
+        bestTime: "9–11AM weekdays"
+      }
+    };
 
-      const output = `
-        <h2 class="text-2xl font-semibold text-blue-300">Your Content Plan</h2>
-        <p><strong>Trend Title:</strong> ${contentPlan.title}</p>
-        <p><strong>Sound:</strong> ${contentPlan.sound}</p>
-        <p><strong>Hook:</strong> ${contentPlan.hook}</p>
-        <p><strong>Caption:</strong> ${contentPlan.caption}</p>
-        <p><strong>Hashtags:</strong> ${contentPlan.hashtags.join(" ")}</p>
-        <p><strong>Best Time to Post:</strong> ${contentPlan.bestTime}</p>
-      `;
+    function populateDropdowns() {
+      const platformSelect = document.getElementById("platform");
+      const nicheSelect = document.getElementById("niche");
+      const toneSelect = document.getElementById("tone");
+
+      platformSelect.innerHTML = '<option>Select a Platform</option>' + options.platforms.map(p => `<option>${p}</option>`).join("");
+      toneSelect.innerHTML = '<option>Select a Tone</option>' + options.tones.map(t => `<option>${t}</option>`).join("");
+
+      const allNiches = Object.entries(options.niches).flatMap(([cat, list]) => list.map(n => `<option>${n}</option>`));
+      nicheSelect.innerHTML = '<option>Select a Niche</option>' + allNiches.join("");
+    }
+
+    function generateContent() {
+      const platform = document.getElementById("platform").value;
+      const niche = document.getElementById("niche").value;
+      const tone = document.getElementById("tone").value;
+
+      const key = `${platform}_${niche}_${tone}`;
+      const plan = contentPlans[key];
 
       const container = document.getElementById("contentPlan");
-      container.innerHTML = output;
+
+      if (!plan) {
+        container.innerHTML = `<p class='text-red-400'>No plan available for this combination yet.</p>`;
+        container.classList.remove("hidden");
+        return;
+      }
+
+      container.innerHTML = `
+        <h2 class="text-2xl font-semibold text-blue-300">Your Content Plan</h2>
+        <p><strong>Trend Title:</strong> ${plan.title}</p>
+        <p><strong>Sound:</strong> ${plan.sound}</p>
+        <p><strong>Hook:</strong> ${plan.hook}</p>
+        <p><strong>Caption:</strong> ${plan.caption}</p>
+        <p><strong>Hashtags:</strong> ${plan.hashtags.join(" ")}</p>
+        <p><strong>Best Time to Post:</strong> ${plan.bestTime}</p>
+      `;
       container.classList.remove("hidden");
     }
+
+    window.onload = populateDropdowns;
   </script></body>
 </html>
