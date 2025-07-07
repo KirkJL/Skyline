@@ -1,26 +1,26 @@
 const plans = {
-  fitness: {
-    workouts:
-      "Create a time-lapse of your workout using trending sound X. Caption it with 'No pain no gain 💪' and use hashtags #Fitness #WorkoutGoals.",
-    diet:
-      "Film a 'what I eat in a day' video. Use calm background music. Caption: 'Fuel your gains 🍴' #HealthyEating #Macros",
-    motivation:
-      "Record yourself speaking your favorite quote. Add cinematic filter. Caption: 'Daily motivation for my crew!' #Fitspiration",
+  tiktok: {
+    fitness: {
+      workouts: "TikTok | Workout time-lapse + trending sound. Caption: 'No pain no gain 💪' #Fitness #WorkoutGoals",
+      diet: "TikTok | What I eat in a day. Calm music. Caption: 'Fuel your gains 🍴' #HealthyEating #Macros",
+      motivation: "TikTok | Speak a quote with cinematic filter. Caption: 'Daily motivation!' #Fitspiration"
+    },
+    gaming: {
+      highlights: "TikTok | Clip best kill. Hype music. Caption: 'They didn't see it coming!' #GamingLife #Clutch",
+      walkthroughs: "TikTok | Boss fight with voiceover. Caption: 'Beat this like a pro' #GamerTips",
+      reviews: "TikTok | Live reaction to new game. Caption: 'Honest opinion? 🔥' #GameReview"
+    }
   },
-  gaming: {
-    highlights:
-      "Clip your best kill or moment. Add hype music. Caption: 'They didn't see that coming!' #GamingLife #Clutch",
-    walkthroughs:
-      "Screen record a tricky level or boss fight. Voiceover tips. Caption: 'Beat this level like a pro' #Walkthrough #GamerTips",
-    reviews:
-      "Record your live reaction to a new release. Caption: 'Honest opinion? It's 🔥' #GameReview #GamerTalk",
-  },
-  blogging: {
-    routines:
-      "Film your morning or night routine. Add lo-fi music. Caption: 'Small habits = big wins ✨' #BloggerLife #DailyRoutine",
-    tips:
-      "Create a carousel or video with blogging tips. Caption: 'Blog smarter, not harder' #ContentTips #Blogger",
-    lifestyle:
-      "Document a day in your life. Use warm tones. Caption: 'My cozy day 🍂' #LifestyleBlogger #DayInTheLife",
-  },
+  youtube: {
+    fitness: {
+      workouts: "YouTube | Full workout vlog. Caption: 'Push past your limits!' #FitnessJourney",
+      diet: "YouTube | Meal prep tutorial. Caption: 'Eat to grow!' #HealthyEating",
+      motivation: "YouTube | Motivational speech video. Caption: 'Start your day right!'"
+    },
+    gaming: {
+      highlights: "YouTube | Best kill montage. Caption: 'Top moments of the week' #FPS",
+      walkthroughs: "YouTube | Step-by-step level guide. Caption: 'No more rage quits!'",
+      reviews: "YouTube | Honest review. Caption: 'Worth your time or nah?'"
+    }
+  }
 };
