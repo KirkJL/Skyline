@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const generateBtn = document.getElementById("generateBtn");
   const result = document.getElementById("result");
 
-  // Populate platforms
+  // Populate platform dropdown
   Object.keys(plans).forEach(platform => {
     const option = document.createElement("option");
     option.value = platform;
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     result.innerHTML = "";
     subcategoryContainer.classList.add("hidden");
 
-    if (selectedPlatform) {
+    if (selectedPlatform && plans[selectedPlatform]) {
       Object.keys(plans[selectedPlatform]).forEach(category => {
         const option = document.createElement("option");
         option.value = category;
@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
       categoryContainer.classList.remove("hidden");
     } else {
       categoryContainer.classList.add("hidden");
-      subcategoryContainer.classList.add("hidden");
     }
   });
 
@@ -43,7 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
     result.innerHTML = "";
 
     if (selectedPlatform && selectedCategory) {
-      Object.keys(plans[selectedPlatform][selectedCategory]).forEach(sub => {
+      const subcategories = plans[selectedPlatform][selectedCategory];
+      Object.keys(subcategories).forEach(sub => {
         const option = document.createElement("option");
         option.value = sub;
         option.textContent = sub.charAt(0).toUpperCase() + sub.slice(1);
