@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skyline - Content Planner</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white p-6 min-h-screen">
+  <div class="max-w-2xl mx-auto space-y-6">
+    <h1 class="text-4xl font-bold text-center text-blue-400">Skyline</h1><div class="space-y-4">
+  <select id="platform" class="w-full p-3 bg-gray-800 rounded-lg">
+    <option>Select a Platform</option>
+    <option>TikTok</option>
+    <option>YouTube</option>
+    <option>Instagram</option>
+    <option>Twitch</option>
+    <option>Twitter</option>
+  </select>
+
+  <select id="niche" class="w-full p-3 bg-gray-800 rounded-lg">
+    <option>Select a Niche</option>
+    <option>Fitness</option>
+    <option>Gaming</option>
+    <option>Blogging</option>
+  </select>
+
+  <select id="tone" class="w-full p-3 bg-gray-800 rounded-lg">
+    <option>Select a Tone</option>
+    <option>Funny</option>
+    <option>Motivational</option>
+    <option>Serious</option>
+    <option>Casual</option>
+  </select>
+
+  <button onclick="generateContent()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg">
+    Generate Content Plan
+  </button>
+</div>
+
+<div id="contentPlan" class="hidden bg-gray-800 p-5 rounded-lg mt-6 space-y-2"></div>
+
+  </div>  <script>
+    function generateContent() {
+      const contentPlan = {
+        title: "When leg day ruins your weekend",
+        sound: "leg-day-sound.mp3",
+        hashtags: ["#fitnessfun", "#legday", "#pain"],
+        hook: "POV: You thought you could walk after squats",
+        caption: "Tag a friend who skips leg day 🏋️‍♂️ #fitnessfun #gymstruggles",
+        bestTime: "6–9PM weekdays"
+      };
+
+      const output = `
+        <h2 class="text-2xl font-semibold text-blue-300">Your Content Plan</h2>
+        <p><strong>Trend Title:</strong> ${contentPlan.title}</p>
+        <p><strong>Sound:</strong> ${contentPlan.sound}</p>
+        <p><strong>Hook:</strong> ${contentPlan.hook}</p>
+        <p><strong>Caption:</strong> ${contentPlan.caption}</p>
+        <p><strong>Hashtags:</strong> ${contentPlan.hashtags.join(" ")}</p>
+        <p><strong>Best Time to Post:</strong> ${contentPlan.bestTime}</p>
+      `;
+
+      const container = document.getElementById("contentPlan");
+      container.innerHTML = output;
+      container.classList.remove("hidden");
+    }
+  </script></body>
+</html>
