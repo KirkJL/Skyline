@@ -9,7 +9,8 @@
   <div class="max-w-2xl mx-auto space-y-6">
     <h1 class="text-4xl font-bold text-center text-blue-400">Skyline</h1><div class="space-y-4">
   <select id="platform" class="w-full p-3 bg-gray-800 rounded-lg"></select>
-  <select id="niche" class="w-full p-3 bg-gray-800 rounded-lg"></select>
+  <select id="primaryCategory" class="w-full p-3 bg-gray-800 rounded-lg" onchange="updateSubcategories()"></select>
+  <select id="subcategory" class="w-full p-3 bg-gray-800 rounded-lg"></select>
   <select id="tone" class="w-full p-3 bg-gray-800 rounded-lg"></select>
   <button onclick="generateContent()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg">
     Generate Content Plan
@@ -21,7 +22,7 @@
   </div>  <script>
     const options = {
       platforms: ["TikTok", "YouTube", "Instagram", "Twitch", "Twitter", "Facebook", "Threads", "Pinterest"],
-      niches: {
+      categories: {
         Fitness: ["Gym Motivation", "Home Workouts", "Bodybuilding", "Diet Tips", "Recovery Hacks"],
         Gaming: ["Funny Clips", "Game Guides", "Stream Highlights", "Reviews", "Fails"],
         Blogging: ["Productivity", "Personal Stories", "Tutorials", "Affiliate Reviews", "Writing Tips"]
@@ -74,22 +75,30 @@
 
     function populateDropdowns() {
       const platformSelect = document.getElementById("platform");
-      const nicheSelect = document.getElementById("niche");
+      const primaryCategorySelect = document.getElementById("primaryCategory");
       const toneSelect = document.getElementById("tone");
 
       platformSelect.innerHTML = '<option>Select a Platform</option>' + options.platforms.map(p => `<option>${p}</option>`).join("");
+      primaryCategorySelect.innerHTML = '<option>Select a Category</option>' + Object.keys(options.categories).map(c => `<option>${c}</option>`).join("");
       toneSelect.innerHTML = '<option>Select a Tone</option>' + options.tones.map(t => `<option>${t}</option>`).join("");
+    }
 
-      const allNiches = Object.entries(options.niches).flatMap(([cat, list]) => list.map(n => `<option>${n}</option>`));
-      nicheSelect.innerHTML = '<option>Select a Niche</option>' + allNiches.join("");
+    function updateSubcategories() {
+      const selectedCategory = document.getElementById("primaryCategory").value;
+      const subcategorySelect = document.getElementById("subcategory");
+      if (!options.categories[selectedCategory]) {
+        subcategorySelect.innerHTML = '<option>Select a Subcategory</option>';
+        return;
+      }
+      subcategorySelect.innerHTML = '<option>Select a Subcategory</option>' + options.categories[selectedCategory].map(n => `<option>${n}</option>`).join("");
     }
 
     function generateContent() {
       const platform = document.getElementById("platform").value;
-      const niche = document.getElementById("niche").value;
+      const subcategory = document.getElementById("subcategory").value;
       const tone = document.getElementById("tone").value;
 
-      const key = `${platform}_${niche}_${tone}`;
+      const key = `${platform}_${subcategory}_${tone}`;
       const plan = contentPlans[key];
 
       const container = document.getElementById("contentPlan");
